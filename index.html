@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Workspace - Login</title>
+        <style>
+            .cool{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .centerer{
+                margin: 0;
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                -ms-transform: translate(-40%, -50%);
+                transform: translate(-40%, -50%);
+            }
+            .box{
+                border-radius: 20px;
+                padding-left: 25px;
+                padding-right: 25px;
+                padding-bottom: 20px;
+                border: 3px solid #90aaff;
+                background-color: #d1f0ff;
+            }
+            button{
+                background-color: #d1f0ff;
+                border-radius: 3px;
+                border: 3px solid #90aaff;
+                transition-duration: 0.1s;
+            }
+            button:hover{
+                background-color: #dff3fd;
+                border-radius: 3px;
+                border: 3px solid #b3c4fc;
+            }
+            button:active{
+                background-color: #c1eaff;
+                border-radius: 3px;
+                border: 3px solid #7d9bfd;
+            }
+        </style>
+    </head>
+
+    <body style="background-color: rgb(221, 249, 250);">
+        <form action="login.html">
+            <div class="centerer box">
+                <div>
+                    <h1 class="cool">Login here</h1>
+                </div>
+                <div>
+                    <label class="cool" for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+                </div>
+                <div>
+                    <label class="cool" for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" id="pass_show" required>
+                </div>
+                <div class="cool" style="padding-top: 10px;">
+                    <button type="submit"> Login </button>
+                    <input type="checkbox" onclick="ShowPass()">Show Password
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
+
+<script>
+function ShowPass() {
+  var x = document.getElementById("pass_show");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
