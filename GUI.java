@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 
 public class GUI implements ActionListener {
     private static JTextField userText;
-    private static JPasswordField pwdText;
-    private static JLabel failure;
-    private static JFrame frame;
+    public static JPasswordField pwdText;
+    public static JLabel failure;
+    public static JFrame frame;
 
     public static String uname = "admin";
     public static String pwd = "root";
@@ -61,7 +61,7 @@ public class GUI implements ActionListener {
         String password = pwdText.getText();
         if (user.equals(uname)&&password.equals(pwd)){
             failure.setText("Logging in...");
-            frame.setVisible(false);
+            frame.dispose();
             new WorkSpace();
         }
         else{
