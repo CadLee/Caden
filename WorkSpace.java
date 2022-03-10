@@ -1,6 +1,7 @@
 package IA.src;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,10 +15,21 @@ public class WorkSpace implements ActionListener{
     private final JButton sCls = new JButton("Exit");
 
     private final JButton fAdd = new JButton("Add");
+    private final JButton fAddCfn = new JButton("Confirm");
+    private final JButton fAddCan = new JButton("Cancel");
+
     private final JButton fRem = new JButton("Remove");
+    private final JButton fRemCfn = new JButton("Confirm");
+    private final JButton fRemCan = new JButton("Cancel");
+
 
     private final JButton eAdd = new JButton("Add");
+    private final JButton eAddCfn = new JButton("Confirm");
+    private final JButton eAddCan = new JButton("Cancel");
+
     private final JButton eRem = new JButton("Remove");
+    private final JButton eRemCfn = new JButton("Confirm");
+    private final JButton eRemCan = new JButton("Cancel");
 
 
     private final JTextField hText;
@@ -28,17 +40,20 @@ public class WorkSpace implements ActionListener{
 
     private final JFrame frame = new JFrame();
     private final JFrame sign = new JFrame();
+    private final JFrame fAdder = new JFrame();
+    private final JFrame fRemove = new JFrame();
 
-    private static final String[] fArr = {"Steak Dinner","Cereal"};
-    private static final String[] eArr = {"Running 1hr","Workout Set 1"};
-    private static final int[] fCal = {1280, 440};
-    private static final int[] eCal = {760, 900};
-    private static final int finCal=0;
+    private final JFrame eAdder = new JFrame();
+    private final JFrame eRemove = new JFrame();
 
-    public static JList<String> fList;
-    public static JList<String> eList;
 
-    private static int i;
+    JList<food> fList = new JList<>();
+    DefaultListModel<food> fListM = new DefaultListModel<>();
+
+    JList<exer> eList = new JList<>();
+    DefaultListModel <exer> eListM = new DefaultListModel<>();
+
+
 
 
 
@@ -88,8 +103,7 @@ public class WorkSpace implements ActionListener{
         bmiCalc.addActionListener(this);
         panel.add(bmiCalc);
 
-
-        fList=new JList<>(fArr);
+        fList.setModel(fListM);
         fList.setVisibleRowCount(9);
         fList.setBounds(250,70,200,150);
         panel.add(fList);
@@ -99,11 +113,13 @@ public class WorkSpace implements ActionListener{
         panel.add(fScroll);
 
         fAdd.setBounds(250,230,100,30);
+        fAdd.addActionListener(this);
         panel.add(fAdd);
         fRem.setBounds(350, 230,100,30);
+        fRem.addActionListener(this);
         panel.add(fRem);
 
-        eList=new JList<>(eArr);
+        eList.setModel(eListM);
         eList.setVisibleRowCount(9);
         eList.setBounds(500,70,200,150);
         panel.add(eList);
@@ -125,10 +141,15 @@ public class WorkSpace implements ActionListener{
         panel.add(sOut);
 
         frame.setVisible(true);
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        TextField foodText = new TextField();
+        TextField fCalText = new TextField();
 
         if(e.getSource() == bmiCalc){
             double w = Double.parseDouble(wText.getText());
@@ -141,20 +162,26 @@ public class WorkSpace implements ActionListener{
                 sLabel.setText("Invalid");
             }else if(b<=18.5){
                 sLabel.setText("Underweight");
+                //sLabel.setText("Thin af");
             }else if(b<25){
                 sLabel.setText("Normal");
+                //sLabel.setText("Average af");
             }else if(b<30){
                 sLabel.setText("Overweight");
+                //sLabel.setText("thicc af");
             }else if(b<35){
                 sLabel.setText("Obese");
+                //sLabel.setText("Phatt af");
             }else if(b>35){
                 sLabel.setText("Extremely Obese");
+                //sLabel.setText("Literally ur mom");
+
             }
         }
         else if(e.getSource() == sOut){
             sign.setSize(350,150);
             sign.setLocation(100,150);
-            sign.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            sign.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
             JPanel sPan=new JPanel();
             sign.add(sPan);
@@ -198,19 +225,130 @@ public class WorkSpace implements ActionListener{
             GUI.pwdText.setText(null);
         }
         else if (e.getSource() == fAdd){
+            JPanel panel = new JPanel();
+            fAdder.add(panel);
+            fAdder.setLocation(400,300);
+            fAdder.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            fAdder.setSize(400,400);
+            panel.setLayout(null);
+
+            JLabel fMsg = new JLabel("Please add food item and calories gained from the food.");
+            fMsg.setBounds(10,10,390,40);
+            panel.add(fMsg);
+            JLabel foodLabel = new JLabel("Name of food :");
+            foodLabel.setBounds(10,60,100,30);
+            panel.add(foodLabel);
+
+            foodText.setText("");
+            foodText.setBounds(120,60,200,30);
+            panel.add(foodText);
+
+
+            JLabel fCalLabel = new JLabel("Calories :");
+            fCalLabel.setBounds(10,100,100,30);
+            panel.add(fCalLabel);
+
+            fCalText.setText("");
+            fCalText.setBounds(120,100,200,30);
+            panel.add(fCalText);
+
+            fAddCfn.setBounds(230,150,100,30);
+            fAddCfn.addActionListener(this);
+            panel.add(fAddCfn);
+
+            fAddCan.setBounds(115,150,100,30);
+            fAddCan.addActionListener(this);
+            panel.add(fAddCan);
+
+            fAdder.setVisible(true);
+            frame.setEnabled(false);
+        }
+        else if (e.getSource() == fAddCfn){
+            fListM.addElement(foodText.getText(),fCalText.getText();
+            frame.setEnabled(true);
+            fAdder.setVisible(false);
+        }
+        else if (e.getSource() == fAddCan){
+            foodText.setText("");
+            fCalText.setText("");
+            frame.setEnabled(true);
+            fAdder.setVisible(false);
+        }
+        else if (e.getSource() == fRem){
+
 
         }
-        else if (e.getSource() == fAdd){
+        else if (e.getSource() == eAdd){
 
         }
-        else if (e.getSource() == fAdd){
-
-        }
-        else if (e.getSource() == fAdd){
-
+        else if (e.getSource() == eRem){
+            frame.setEnabled(true);
+            eAdder.dispose();
         }
 
 
         else if (e.getSource() == sCls) System.exit(0);
+    }
+
+    private class food {
+        String name;
+        double cal;
+
+        public food(String name, double cal) {
+            this.name = name;
+            this.cal = cal;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public double getCal() {
+            return cal;
+        }
+
+        public void setCal(double cal) {
+            this.cal = cal;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    private class exer {
+        String name;
+        double cal;
+
+        public exer(String name, double cal) {
+            this.name = name;
+            this.cal = cal;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public double getCal() {
+            return cal;
+        }
+
+        public void setCal(double cal) {
+            this.cal = cal;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

@@ -52,9 +52,9 @@ public class GUI implements ActionListener {
         failure.setText("");
 
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        //frame.setVisible(false);
-        //new WorkSpace();
+        //frame.setVisible(true);
+        frame.setVisible(false);
+        new WorkSpace();
     }
 
     @Override
