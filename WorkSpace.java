@@ -6,21 +6,39 @@ import java.awt.event.ActionListener;
 
 public class WorkSpace implements ActionListener{
 
-    private JButton bmiCalc = new JButton("Calculate");
+    private final JButton bmiCalc = new JButton("Calculate");
 
-    private JButton sOut = new JButton("Sign out");
-    private JButton sCfm = new JButton("Confirm");
-    private JButton sCan = new JButton("Cancel");
-    private JButton sCls = new JButton("Exit");
+    private final JButton sOut = new JButton("Sign out");
+    private final JButton sCfm = new JButton("Confirm");
+    private final JButton sCan = new JButton("Cancel");
+    private final JButton sCls = new JButton("Exit");
+
+    private final JButton fAdd = new JButton("Add");
+    private final JButton fRem = new JButton("Remove");
+
+    private final JButton eAdd = new JButton("Add");
+    private final JButton eRem = new JButton("Remove");
 
 
+    private final JTextField hText;
+    private final JTextField wText;
 
-    private JTextField hText, wText;
-    private JLabel b2Label = new JLabel("-");
-    private JLabel sLabel = new JLabel("");
-    private JFrame frame = new JFrame();
-    private JFrame sign = new JFrame();
+    private final JLabel b2Label = new JLabel("-");
+    private final JLabel sLabel = new JLabel("");
 
+    private final JFrame frame = new JFrame();
+    private final JFrame sign = new JFrame();
+
+    private static final String[] fArr = {"Steak Dinner","Cereal"};
+    private static final String[] eArr = {"Running 1hr","Workout Set 1"};
+    private static final int[] fCal = {1280, 440};
+    private static final int[] eCal = {760, 900};
+    private static final int finCal=0;
+
+    public static JList<String> fList;
+    public static JList<String> eList;
+
+    private static int i;
 
 
 
@@ -42,7 +60,7 @@ public class WorkSpace implements ActionListener{
         username.setBounds(10,10,80,10);
         panel.add(username);
 
-        JLabel hLabel = new JLabel("Height (ms):");
+        JLabel hLabel = new JLabel("Height (cms):");
         hLabel.setBounds(10,350,120,25);
         panel.add(hLabel);
         hText = new JTextField(20);
@@ -70,6 +88,38 @@ public class WorkSpace implements ActionListener{
         bmiCalc.addActionListener(this);
         panel.add(bmiCalc);
 
+
+        fList=new JList<>(fArr);
+        fList.setVisibleRowCount(9);
+        fList.setBounds(250,70,200,150);
+        panel.add(fList);
+        JScrollPane fScroll = new JScrollPane();
+        fScroll.setViewportView(fList);
+        fScroll.setBounds(250,70,200,150);
+        panel.add(fScroll);
+
+        fAdd.setBounds(250,230,100,30);
+        panel.add(fAdd);
+        fRem.setBounds(350, 230,100,30);
+        panel.add(fRem);
+
+        eList=new JList<>(eArr);
+        eList.setVisibleRowCount(9);
+        eList.setBounds(500,70,200,150);
+        panel.add(eList);
+        JScrollPane eScroll = new JScrollPane();
+        eScroll.setViewportView(eList);
+        eScroll.setBounds(500,70,200,150);
+        panel.add(eScroll);
+
+        eAdd.setBounds(500,230,100,30);
+        eAdd.addActionListener(this);
+        panel.add(eAdd);
+        eRem.setBounds(600, 230,100,30);
+        eAdd.addActionListener(this);
+        panel.add(eRem);
+
+
         sOut.setBounds(10,25,80,25);
         sOut.addActionListener(this);
         panel.add(sOut);
@@ -80,12 +130,12 @@ public class WorkSpace implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource()==bmiCalc){
+        if(e.getSource() == bmiCalc){
             double w = Double.parseDouble(wText.getText());
             double h = Double.parseDouble(hText.getText());
-            double b = w/(h*h);
-            b2Label.setText(b+"");
+            double b = w/((h*h)/10000);
 
+            b2Label.setText(b+"");
 
             if(b<1){
                 sLabel.setText("Invalid");
@@ -100,7 +150,8 @@ public class WorkSpace implements ActionListener{
             }else if(b>35){
                 sLabel.setText("Extremely Obese");
             }
-        }else if(e.getSource()==sOut){
+        }
+        else if(e.getSource() == sOut){
             sign.setSize(350,150);
             sign.setLocation(100,150);
             sign.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,21 +180,37 @@ public class WorkSpace implements ActionListener{
             sPan.add(sCls);
 
 
+
             sign.setVisible(true);
             frame.setEnabled(false);
 
-        }else if (e.getSource()==sCan){
+        }
+        else if (e.getSource() == sCan){
             sign.setVisible(false);
             frame.setEnabled(true);
-        }else if (e.getSource() == sCfm) {
+        }
+        else if (e.getSource() == sCfm) {
             frame.setVisible(false);
             sign.setVisible(false);
             new GUI();
             GUI.frame.setVisible(true);
             GUI.failure.setText("Logged out");
             GUI.pwdText.setText(null);
-        }else if (e.getSource() == sCls) {
-            System.exit(0);
         }
+        else if (e.getSource() == fAdd){
+
+        }
+        else if (e.getSource() == fAdd){
+
+        }
+        else if (e.getSource() == fAdd){
+
+        }
+        else if (e.getSource() == fAdd){
+
+        }
+
+
+        else if (e.getSource() == sCls) System.exit(0);
     }
 }

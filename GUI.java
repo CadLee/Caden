@@ -53,6 +53,8 @@ public class GUI implements ActionListener {
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        //frame.setVisible(false);
+        //new WorkSpace();
     }
 
     @Override
