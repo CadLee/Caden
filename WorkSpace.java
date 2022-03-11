@@ -24,11 +24,14 @@ public class WorkSpace implements ActionListener{
     private final JButton fRemCfn = new JButton("Confirm");
     private final JButton fRemCan = new JButton("Cancel");
 
-
+    private JFrame fAdder;
+    private JFrame fRemove;
     private final JButton eAdd = new JButton("Add");
     private final JButton eAddCfn = new JButton("Confirm");
     private final JButton eAddCan = new JButton("Cancel");
 
+    private JFrame eAdder = new JFrame();
+    private JFrame eRemove = new JFrame();
     private final JButton eRem = new JButton("Remove");
     private final JButton eRemCfn = new JButton("Confirm");
     private final JButton eRemCan = new JButton("Cancel");
@@ -43,14 +46,13 @@ public class WorkSpace implements ActionListener{
     private final JFrame frame = new JFrame();
     private final JFrame sign = new JFrame();
 
-    private JFrame fAdder = new JFrame();
-    private final JFrame fRemove = new JFrame();
 
-    private final JFrame eAdder = new JFrame();
-    private final JFrame eRemove = new JFrame();
 
     private final TextField foodText = new TextField();
     private final TextField fCalText = new TextField();
+
+    private final TextField exerText = new TextField();
+    private final TextField eCalText = new TextField();
 
 
 
@@ -141,7 +143,7 @@ public class WorkSpace implements ActionListener{
         eAdd.addActionListener(this);
         panel.add(eAdd);
         eRem.setBounds(600, 230,100,30);
-        eAdd.addActionListener(this);
+        eRem.addActionListener(this);
         panel.add(eRem);
 
 
@@ -191,8 +193,99 @@ public class WorkSpace implements ActionListener{
 
         fAdder.setVisible(false);
 
+        // Food remover
+
+        fRemove = new JFrame();
+        JPanel fRemPan = new JPanel();
+        fRemPan.setLayout(null);
+        fRemove.add(fRemPan);
+        fRemove.setSize(320,150);
+        fRemove.setLocation(400,300);
+        JLabel fRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>item from the list");
+        fRemMsg.setBounds(15,5,380,50);
+        fRemPan.add(fRemMsg);
+
+        fRemCan.setBounds(110,70,80,30);
+        fRemCan.addActionListener(this);
+        fRemPan.add(fRemCan);
+
+        fRemCfn.setBounds(210,70,80,30);
+        fRemCfn.addActionListener(this);
+        fRemPan.add(fRemCfn);
+
+        fRemove.setVisible(true);
+
+
+        //exercise adder
+        eAdder = new JFrame();
+        JPanel eAddPan = new JPanel();
+        eAdder.add(eAddPan);
+        eAdder.setLocation(400,300);
+        eAdder.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        eAdder.setSize(400,400);
+        eAddPan.setLayout(null);
+
+        JLabel eMsg = new JLabel("Please add Exercise and calories burned from the food.");
+        eMsg.setBounds(10,10,390,40);
+        eAddPan.add(eMsg);
+        JLabel exerLabel = new JLabel("Exercise name :");
+        exerLabel.setBounds(10,60,100,30);
+        eAddPan.add(exerLabel);
+
+        exerText.setText("");
+        exerText.setBounds(120,60,200,30);
+        eAddPan.add(exerText);
+
+
+        JLabel eCalLabel = new JLabel("Calories burned :");
+        eCalLabel.setBounds(10,100,100,30);
+        eAddPan.add(eCalLabel);
+
+        eCalText.setText("");
+        eCalText.setBounds(120,100,200,30);
+        eAddPan.add(eCalText);
+
+        eAddCfn.setBounds(230,150,100,30);
+        eAddCfn.addActionListener(this);
+        eAddPan.add(eAddCfn);
+
+        eAddCan.setBounds(115,150,100,30);
+        eAddCan.addActionListener(this);
+        eAddPan.add(eAddCan);
+
+        fAdder.setVisible(false);
+        frame.setVisible(true);
+
+        // exercise remover
+
+        eRemove = new JFrame();
+        JPanel eRemPan = new JPanel();
+        eRemPan.setLayout(null);
+        eRemove.add(eRemPan);
+        eRemove.setSize(320,150);
+        eRemove.setLocation(400,300);
+        JLabel eRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>item from the list");
+        eRemMsg.setBounds(15,5,380,50);
+        eRemPan.add(eRemMsg);
+
+        eRemCan.setBounds(110,70,80,30);
+        eRemCan.addActionListener(this);
+        eRemPan.add(eRemCan);
+
+        eRemCfn.setBounds(210,70,80,30);
+        eRemCfn.addActionListener(this);
+        eRemPan.add(eRemCfn);
+
+        eRemove.setVisible(false);
+
+
+
         frame.setVisible(true);
     }
+
+
+    // Button configs ----------------------------------------------------
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -280,8 +373,6 @@ public class WorkSpace implements ActionListener{
         }
         else if (e.getSource() == fAddCfn){
 
-            System.out.println(foodText.getText());
-            System.out.println(Double.parseDouble(fCalText.getText()));
 
             fListM.addElement(new food(foodText.getText(),Double.parseDouble(fCalText.getText())));
 
@@ -300,18 +391,59 @@ public class WorkSpace implements ActionListener{
             frame.setEnabled(true);
             fAdder.setVisible(false);
         }
+
         else if (e.getSource() == fRem){
-
-
+            fRemove.setVisible(true);
+            frame.setEnabled(false);
         }
-        else if (e.getSource() == eAdd){
+        else if (e.getSource() == fRemCfn){
+            int i = fList.getSelectedIndex();
+            fListM.removeElementAt(i);
+            fList.updateUI();
+            fRemove.setVisible(false);
+            frame.setEnabled(true);
+        }
+        else if (e.getSource() == fRemCan){
+            fRemove.setVisible(false);
+            frame.setEnabled(true);
+        }
+        else if  (e.getSource() == eAdd){
 
+            eAdder.setVisible(true);
+            frame.setEnabled(false);
+        }else if (e.getSource() == eAddCan){
+            exerText.setText("");
+            eCalText.setText("");
+
+
+
+            frame.setEnabled(true);
+            eAdder.setVisible(false);
+        }
+        else if (e.getSource() == eAddCfn){
+            eListM.addElement(new exer(exerText.getText(),Double.parseDouble(eCalText.getText())));
+
+            eList.updateUI();
+            frame.setEnabled(true);
+            eAdder.setVisible(false);
+            exerText.setText("");
+            eCalText.setText("");
         }
         else if (e.getSource() == eRem){
-            frame.setEnabled(true);
-            eAdder.dispose();
+            frame.setEnabled(false);
+            eRemove.setVisible(true);
         }
-
+        else if (e.getSource() == eRemCfn){
+            int i = eList.getSelectedIndex();
+            eListM.removeElementAt(i);
+            eList.updateUI();
+            eRemove.setVisible(false);
+            frame.setEnabled(true);
+        }
+        else if (e.getSource() == eRemCan){
+            eRemove.setVisible(false);
+            frame.setEnabled(true);
+        }
 
     }
 
