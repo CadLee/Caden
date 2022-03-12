@@ -1,6 +1,7 @@
 package IA.src;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +18,7 @@ public class GUI implements ActionListener {
         frame = new JFrame();
         JPanel panel = new JPanel();
 
-        frame.setSize(350,200);
+        frame.setSize(300,150);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Login");
         //frame.pack();
@@ -42,19 +43,19 @@ public class GUI implements ActionListener {
 
 
         JButton loginButton = new JButton("Login");
-        loginButton.setBounds(120,80,80,25);
+        loginButton.setBounds(130,80,80,25);
         loginButton.addActionListener(new GUI());
         panel.add(loginButton);
 
         failure = new JLabel("");
-        failure.setBounds(10,110,300,25);
+        failure.setBounds(10,80,300,25);
         panel.add(failure);
         failure.setText("");
 
         frame.setLocationRelativeTo(null);
-        //frame.setVisible(true);
-        frame.setVisible(false);
-        new WorkSpace();
+        frame.setVisible(true);
+        //frame.setVisible(false);
+        //new WorkSpace();
     }
 
     @Override
@@ -62,11 +63,13 @@ public class GUI implements ActionListener {
         String user = userText.getText();
         String password = pwdText.getText();
         if (user.equals(uname)&&password.equals(pwd)){
+            failure.setForeground(Color.DARK_GRAY);
             failure.setText("Logging in...");
             frame.dispose();
             new WorkSpace();
         }
         else{
+            failure.setForeground(Color.red);
             failure.setText("Invalid credentials");
         }
     }

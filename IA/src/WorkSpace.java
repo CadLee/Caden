@@ -1,7 +1,5 @@
 package IA.src;
 
-import com.sun.source.doctree.TextTree;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -201,7 +199,7 @@ public class WorkSpace implements ActionListener{
         fRemove.add(fRemPan);
         fRemove.setSize(320,150);
         fRemove.setLocation(400,300);
-        JLabel fRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>item from the list");
+        JLabel fRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>food from the list");
         fRemMsg.setBounds(15,5,380,50);
         fRemPan.add(fRemMsg);
 
@@ -213,10 +211,12 @@ public class WorkSpace implements ActionListener{
         fRemCfn.addActionListener(this);
         fRemPan.add(fRemCfn);
 
-        fRemove.setVisible(true);
+        fRemove.setVisible(false);
 
 
-        //exercise adder
+        //exercise adder--------------------------------------------------
+
+
         eAdder = new JFrame();
         JPanel eAddPan = new JPanel();
         eAdder.add(eAddPan);
@@ -264,7 +264,7 @@ public class WorkSpace implements ActionListener{
         eRemove.add(eRemPan);
         eRemove.setSize(320,150);
         eRemove.setLocation(400,300);
-        JLabel eRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>item from the list");
+        JLabel eRemMsg = new JLabel("<html>Are you sure you want to delete the selected <br>exercise from the list");
         eRemMsg.setBounds(15,5,380,50);
         eRemPan.add(eRemMsg);
 
@@ -278,6 +278,14 @@ public class WorkSpace implements ActionListener{
 
         eRemove.setVisible(false);
 
+        //---------------------------------------------------------------------------------
+        JLabel foodList = new JLabel("Food eaten in the day:");
+        foodList.setBounds(250,40,200,30);
+        panel.add(foodList);
+
+        JLabel exerList = new JLabel("Exercise for the day:");
+        exerList.setBounds(500,40,200,30);
+        panel.add(exerList);
 
 
         frame.setVisible(true);
