@@ -278,7 +278,7 @@ public class WorkSpace implements ActionListener{
 
         eRemove.setVisible(false);
 
-        //---------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------
         JLabel foodList = new JLabel("Food eaten in the day:");
         foodList.setBounds(250,40,200,30);
         panel.add(foodList);
