@@ -52,6 +52,12 @@ public class WorkSpace implements ActionListener{
     private final TextField exerText = new TextField();
     private final TextField eCalText = new TextField();
 
+    double calGain = 0;
+    double calLoss = 0;
+
+    JLabel fi2Msg = new JLabel(calGain+"");
+    JLabel fi4Msg = new JLabel(calLoss+"");
+    JLabel fi5Msg = new JLabel(" = "+(calGain-calLoss)+" calories");
 
 
     JList<food> fList = new JList<>();
@@ -288,6 +294,23 @@ public class WorkSpace implements ActionListener{
         panel.add(exerList);
 
 
+        JLabel fiMsg = new JLabel("Net calories = ");
+        fiMsg.setBounds(250,260,100,30);
+        panel.add(fiMsg);
+
+        fi2Msg.setBounds(345,260,100,30);
+        panel.add(fi2Msg);
+        JLabel fi3Msg = new JLabel(" - ");
+        fi3Msg.setBounds(468,260,500,30);
+        panel.add(fi3Msg);
+
+        fi4Msg.setBounds(510,260,100,30);
+        panel.add(fi4Msg);
+
+        fi5Msg.setBounds(610,260,200,30);
+        panel.add(fi5Msg);
+
+
         frame.setVisible(true);
     }
 
@@ -309,20 +332,14 @@ public class WorkSpace implements ActionListener{
                 sLabel.setText("Invalid");
             }else if(b<=18.5){
                 sLabel.setText("Underweight");
-                //sLabel.setText("Thin af");
             }else if(b<25){
                 sLabel.setText("Normal");
-                //sLabel.setText("Average af");
             }else if(b<30){
                 sLabel.setText("Overweight");
-                //sLabel.setText("thicc af");
             }else if(b<35){
                 sLabel.setText("Obese");
-                //sLabel.setText("Phatt af");
             }else if(b>35){
                 sLabel.setText("Extremely Obese");
-                //sLabel.setText("Literally ur mom");
-
             }
         }
         else if(e.getSource() == sOut){
@@ -380,11 +397,11 @@ public class WorkSpace implements ActionListener{
             frame.setEnabled(false);
         }
         else if (e.getSource() == fAddCfn){
-
-
             fListM.addElement(new food(foodText.getText(),Double.parseDouble(fCalText.getText())));
-
+            calGain=calGain+Double.parseDouble(fCalText.getText());
             fList.updateUI();
+            fi2Msg.setText(calGain+"");
+            fi5Msg.setText(" = "+(calGain-calLoss)+" calories");
             frame.setEnabled(true);
             fAdder.setVisible(false);
             foodText.setText("");
@@ -393,7 +410,6 @@ public class WorkSpace implements ActionListener{
         else if (e.getSource() == fAddCan){
             foodText.setText("");
             fCalText.setText("");
-
 
 
             frame.setEnabled(true);
@@ -406,6 +422,11 @@ public class WorkSpace implements ActionListener{
         }
         else if (e.getSource() == fRemCfn){
             int i = fList.getSelectedIndex();
+            food c = fList.getSelectedValue();
+            calGain=calGain-c.getCal();
+            fi2Msg.setText(calGain+"");
+            fi5Msg.setText(" = "+(calGain-calLoss)+" calories");
+            fList.getModel().getElementAt(i);
             fListM.removeElementAt(i);
             fList.updateUI();
             fRemove.setVisible(false);
@@ -416,21 +437,19 @@ public class WorkSpace implements ActionListener{
             frame.setEnabled(true);
         }
         else if  (e.getSource() == eAdd){
-
             eAdder.setVisible(true);
             frame.setEnabled(false);
         }else if (e.getSource() == eAddCan){
             exerText.setText("");
             eCalText.setText("");
-
-
-
             frame.setEnabled(true);
             eAdder.setVisible(false);
         }
         else if (e.getSource() == eAddCfn){
             eListM.addElement(new exer(exerText.getText(),Double.parseDouble(eCalText.getText())));
-
+            calLoss=calLoss+Double.parseDouble(eCalText.getText());
+            fi4Msg.setText(calLoss+"");
+            fi5Msg.setText(" = "+(calGain-calLoss)+" calories");
             eList.updateUI();
             frame.setEnabled(true);
             eAdder.setVisible(false);
@@ -443,6 +462,10 @@ public class WorkSpace implements ActionListener{
         }
         else if (e.getSource() == eRemCfn){
             int i = eList.getSelectedIndex();
+            exer c = eList.getSelectedValue();
+            calLoss=calLoss-c.getCal();
+            fi4Msg.setText(calLoss+"");
+            fi5Msg.setText(" = "+(calGain-calLoss)+" calories");
             eListM.removeElementAt(i);
             eList.updateUI();
             eRemove.setVisible(false);
@@ -452,10 +475,14 @@ public class WorkSpace implements ActionListener{
             eRemove.setVisible(false);
             frame.setEnabled(true);
         }
-
+         if(calGain>calLoss){
+             fi5Msg.setText(" = "+(calGain-calLoss)+" cal gained");
+         } else if(calGain<calLoss){
+             fi5Msg.setText(" = "+Math.abs(calGain-calLoss)+" cal lost");
+         }
     }
 
-    private class food {
+    public class food {
         String name;
         double cal;
 
